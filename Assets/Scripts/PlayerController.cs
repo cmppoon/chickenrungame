@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 	public LayerMask whatIsGround;
 	public bool isGrounded;
 	public bool isDead;
+	public int powerGauge;
+	private GameControl gc;
 
 	private Rigidbody2D myRigidbody;
 	private Animator myAnime;
@@ -19,11 +21,12 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D>();
 		myAnime = GetComponent<Animator>();
-
+		gc = FindObjectOfType<GameControl> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		powerGauge = gc.powerGauge;
 		if (isDead == false) {
 			isGrounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, whatIsGround);
 
@@ -36,13 +39,14 @@ public class PlayerController : MonoBehaviour {
 			if (Input.GetButtonDown ("Jump") && isGrounded) {
 				myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpSpeed);
 			}
+
+			if (Input.GetButtonDown ("Fire1") && isGrounded && (powerGauge == 3)) {
+				myRigidbody.velocity = new Vector2 (boostSpeed * 2, myRigidbody.velocity.y);
+				gc.AddGauge (-3);
+			}
+			
 			myAnime.SetBool ("Ground", isGrounded);
 
 		}
 	}
-//	public void OnCollisionEnter2D(Collision other){
-//		if (other.tag == "speedBoost") {
-//			myRigidbody.velocity = new Vector2 (moveSpeed + 2f,myRigidbody.velocity.y);
-//		}
-//	}
 }
