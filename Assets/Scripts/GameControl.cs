@@ -41,8 +41,6 @@ public class GameControl : MonoBehaviour {
 		if (gameOver == true && Input.GetKeyDown (KeyCode.Space)) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 		}
-
-//		instantiatePosition = thePlayer.transform.position + new Vector3 (0.2f, 4f, 0f);
 		InstantiatedCoin ();
 			
 	}
@@ -62,11 +60,12 @@ public class GameControl : MonoBehaviour {
 	}
 
 	public void AddGauge(int gaugeToAdd){
-		if (powerGauge >= 3) {
-			powerGauge = 3;
-		}else if(powerGauge >= 3 && gaugeToAdd == -3){
+		if(powerGauge >= 3 && gaugeToAdd == -3){
 			powerGauge += gaugeToAdd;
 			UpdateGuage ();
+		}
+		else if (powerGauge >= 3) {
+			powerGauge = 3;
 		}
 		else if(powerGauge < 3){
 			powerGauge += gaugeToAdd;

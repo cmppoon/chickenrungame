@@ -17,12 +17,12 @@ public class Coin : MonoBehaviour {
 	
 	}
 
-	void OnCollisionEnter2D(Collision2D other){
-		if(other.gameObject.tag == "Player"){
+	void OnTriggerEnter2D(Collider2D other){
+		if(other.tag == "Player"){
 			gc.AddGauge (gaugeValue);
 			Destroy (gameObject);
 		}
-		if(other.gameObject.tag == "Killplane"){
+		if(other.tag == "Killplane"){
 			Destroy (gameObject);
 		}
 	}
