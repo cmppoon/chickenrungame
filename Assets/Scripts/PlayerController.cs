@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
 			isGrounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, whatIsGround);
 
 //			if (!isBoosted) {
-				myRigidbody.velocity = new Vector2 (moveSpeed, myRigidbody.velocity.y);
+//				myRigidbody.velocity = new Vector2 (moveSpeed, myRigidbody.velocity.y);
 				boostSpeed = 1;
 //			}
 			if (isBoosted) {

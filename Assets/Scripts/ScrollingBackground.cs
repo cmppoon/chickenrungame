@@ -25,19 +25,19 @@ public class ScrollingBackground : MonoBehaviour {
 
 	public void BackgroundMove(){
 		if (sr.sortingOrder == 1 ){
-			rb2d.velocity = new Vector2 (thePlayer.boostSpeed*GameControl.instance.scrollSpeed*0.2f,0f);
+			rb2d.velocity = new Vector2 (GameControl.instance.GetScrollSpeed() * 0.2f,0f);
 		}
 		else if (sr.sortingOrder == 2 ){
-			rb2d.velocity = new Vector2 (thePlayer.boostSpeed*GameControl.instance.scrollSpeed*0.4f,0f);
+			rb2d.velocity = new Vector2 (GameControl.instance.GetScrollSpeed() * 0.4f,0f);
 		}
 		else if (sr.sortingOrder == 3 ){
-			rb2d.velocity = new Vector2 (thePlayer.boostSpeed*GameControl.instance.scrollSpeed*0.6f,0f);
+			rb2d.velocity = new Vector2 (GameControl.instance.GetScrollSpeed() * 0.6f,0f);
 		}
 		else if (sr.sortingOrder == 4 ){
-			rb2d.velocity = new Vector2 (thePlayer.boostSpeed*GameControl.instance.scrollSpeed*0.8f,0f);
+			rb2d.velocity = new Vector2 (GameControl.instance.GetScrollSpeed() * 0.8f,0f);
 		}
 		else if (sr.sortingOrder == 5 ){
-			rb2d.velocity = new Vector2 (thePlayer.boostSpeed*GameControl.instance.scrollSpeed*1f,0f);
+			rb2d.velocity = new Vector2 (GameControl.instance.GetScrollSpeed() * 1f,0f);
 		}
 	}
 

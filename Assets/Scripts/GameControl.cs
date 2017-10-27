@@ -9,7 +9,7 @@ public class GameControl : MonoBehaviour {
 
 	public bool gameOver = false;
 	public int powerGauge = 0;
-	public float scrollSpeed = -5.0f;
+	public float scrollSpeed = -5f;
 	public GameObject gameOverText;
 	public GameObject Coin;
 	public Image guage;
@@ -19,7 +19,11 @@ public class GameControl : MonoBehaviour {
 	public Sprite guageFill_3;
 	public PlayerController thePlayer;
 	public Vector3 instantiatePosition;
-	public float nextSpawnTime;
+	public float maxScrollSpeed;
+	public float acceleration;
+
+	private float currentScrollSpeed;
+	private float startScrollSpeed;
 
 	void Awake () {
 		if (instance == null) {
@@ -27,30 +31,20 @@ public class GameControl : MonoBehaviour {
 		} else if (instance != this){
 			Destroy (gameObject);
 		}
-	
+		startScrollSpeed = scrollSpeed;
+		currentScrollSpeed = scrollSpeed;
 	}
 
 	// Use this for initialization
 	void Start () {
-		nextSpawnTime = Time.time + 2.0f;
 		thePlayer = FindObjectOfType<PlayerController> ();
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (gameOver == true && Input.GetKeyDown (KeyCode.Space)) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
-		}
-		InstantiatedCoin ();
-			
-	}
-
-	void InstantiatedCoin(){
-		if(Time.time > nextSpawnTime){
-			//do stuff here (like instantiate)
-			Instantiate(Coin, thePlayer.transform.position + new Vector3 (5f, 1f, 0f),thePlayer.transform.rotation);
-			//increment next_spawn_time
-			nextSpawnTime += 5.0f;
 		}
 	}
 
@@ -91,5 +85,26 @@ public class GameControl : MonoBehaviour {
 			guage.sprite = guageFill_0;
 			return;
 		}
+	}
+
+	public float GetScrollSpeed ()
+	{
+		currentScrollSpeed += acceleration * (Time.deltaTime / 100);
+		if (Mathf.Abs(currentScrollSpeed) > Mathf.Abs(maxScrollSpeed)) {
+			currentScrollSpeed = maxScrollSpeed;
+		}
+		//Debug.Log(currentScrollSpeed);
+		return thePlayer.boostSpeed * currentScrollSpeed; 
+	}
+
+	public void ResetScrollSpeed ()
+	{
+		currentScrollSpeed = startScrollSpeed;
+	}
+
+	public float GetStartScrollSpeed ()
+	{
+		
+		return startScrollSpeed;
 	}
 }
